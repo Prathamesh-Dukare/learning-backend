@@ -2,8 +2,9 @@ require("dotenv").config();
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { connect } = require("./config/db");
-const { User } = require("./model/user");
+const connect = require("./config/db");
+const User = require("./model/user");
+const verifyToken = require("./middleware/auth");
 
 const app = express();
 connect();
@@ -85,6 +86,10 @@ app.post("/login", async (req, res) => {
   }
 
   return res.status(400).send("Invalid password");
+});
+
+app.get("/getuser", verifyToken, (req, res) => {
+  res.send("Hello getuser info");
 });
 
 module.exports = app;

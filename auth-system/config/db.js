@@ -12,4 +12,4 @@ const connect = () => {
     .catch((e) => console.log(e));
 };
 
-exports.connect = connect;
+module.exports = connect;
