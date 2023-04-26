@@ -2,7 +2,8 @@ const app = require("./app");
 const express = require("express");
 const { user } = require("./model/user");
 const { PORT } = process.env;
-var bcrypt = require("bcryptjs");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 app.use(express.json());
 
@@ -19,10 +20,21 @@ app.post("/register", async (req, res) => {
 
   if (existingUser) {
     res.status(409).send("User already exists");
-  } else {
-    user.create({ name, email });
-    res.status(200).send("Registered");
   }
+
+  // creating new user
+  let newUser = await user.create({ name, email });
+  // token
+  const token = jwt.sign({ user_id: user._id, email }, process.env.MY_SECRET, {
+    expiresIn: "2h",
+  });
+
+  newUser.token = token;
+
+  res.status(201).json({
+    status: "success",
+    user: newUser,
+  });
 });
 
 app.listen(process.env.PORT, () => {
