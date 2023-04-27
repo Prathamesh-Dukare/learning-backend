@@ -54,3 +54,8 @@ exports.logout = promiceHOF(async (req, res) => {
     .status(200)
     .json({ message: "Logged out successfully" });
 });
+
+exports.getLoggedInUserDetails = promiceHOF(async (req, res) => {
+  const user = await User.findById(req.user._id).select("-password"); // todo: what is this select("-password")?
+  return res.status(200).json(user);
+});
