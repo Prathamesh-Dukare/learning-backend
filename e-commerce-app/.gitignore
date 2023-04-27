@@ -1,0 +1,6 @@
+.env
+/node_modules
+/thunder-tests 
+
+.env
+.env.local
