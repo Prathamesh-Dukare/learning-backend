@@ -44,3 +44,13 @@ exports.login = promiceHOF(async (req, res) => {
 
   sendCookie(res, user);
 });
+
+exports.logout = promiceHOF(async (req, res) => {
+  res
+    .cookie("token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    })
+    .status(200)
+    .json({ message: "Logged out successfully" });
+});
