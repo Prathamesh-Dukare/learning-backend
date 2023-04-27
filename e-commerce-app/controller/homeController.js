@@ -1,4 +1,4 @@
-const promiseHOC = require("../middleware/promiseHOC");
+const promiseHOC = require("../middleware/promiseHOF");
 
 exports.home = promiseHOC(async (req, res) => {
   // const a = await 1;
