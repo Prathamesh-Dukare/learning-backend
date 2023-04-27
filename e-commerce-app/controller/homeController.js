@@ -1,7 +1,6 @@
-exports.home = (req, res) => {
-  res.send("Hello World3!");
-};
+const promiseHOC = require("../middleware/promiseHOC");
 
-exports.hello = (req, res) => {
-  res.send("Hello World4!");
-};
+exports.home = promiseHOC(async (req, res) => {
+  // const a = await 1;
+  res.send("Hello World3!");
+});
